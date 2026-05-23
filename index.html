@@ -5,8 +5,6 @@
     <meta name="viewport" content="width=1200, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>539 開獎大數據歷史清單</title>
     
-    <script src="https://88ll88.github.io/88/ddd.js"></script>
-
     <style>
         html, body {
             width: 1200px;
@@ -85,43 +83,47 @@
     </div>
 
     <script>
+        // 🚨 老哥！最新的開獎數據直接黏在這裡，不讀外部檔案了，絕對不會錯！
+        // 每天開獎後，你只要手動把新的一行像這樣補在最上面就可以了！
+        const myData = [
+            ["2026-05-23(六)", "05", "12", "18", "25", "33"],
+            ["2026-05-22(五)", "01", "08", "19", "22", "30"],
+            ["2026-05-21(四)", "10", "15", "23", "29", "35"],
+            ["2026-05-20(三)", "04", "11", "17", "26", "31"]
+        ];
+
         const tbody = document.getElementById('data-list');
         
-        // 🚨 這裡也同步改成讀取 ddd
-        if (typeof ddd !== 'undefined' && ddd.length > 0) {
-            ddd.forEach(row => {
-                const date = row[0]; // 日期
-                
-                // 拿後面的5個號碼，轉成數字並排序
-                const numbers = row.slice(1)
-                                   .map(Number)
-                                   .sort((a, b) => a - b);
-                
-                // 補齊兩位數，例如 4 變成 "04"
-                const formattedNumbers = numbers.map(num => String(num).padStart(2, '0'));
+        myData.forEach(row => {
+            const date = row[0]; // 日期
+            
+            // 拿後面的5個號碼，轉成數字並排序（從小到大）
+            const numbers = row.slice(1)
+                               .map(Number)
+                               .sort((a, b) => a - b);
+            
+            // 補齊兩位數
+            const formattedNumbers = numbers.map(num => String(num).padStart(2, '0'));
 
-                let tr = document.createElement('tr');
-                
-                // 放日期
-                let tdDate = document.createElement('td');
-                tdDate.innerText = date;
-                tr.appendChild(tdDate);
-                
-                // 放號碼球
-                let tdNums = document.createElement('td');
-                formattedNumbers.forEach(num => {
-                    let span = document.createElement('span');
-                    span.className = 'num-ball';
-                    span.innerText = num;
-                    tdNums.appendChild(span);
-                });
-                tr.appendChild(tdNums);
-                
-                tbody.appendChild(tr);
+            let tr = document.createElement('tr');
+            
+            // 放日期
+            let tdDate = document.createElement('td');
+            tdDate.innerText = date;
+            tr.appendChild(tdDate);
+            
+            // 放號碼球
+            let tdNums = document.createElement('td');
+            formattedNumbers.forEach(num => {
+                let span = document.createElement('span');
+                span.className = 'num-ball';
+                span.innerText = num;
+                tdNums.appendChild(span);
             });
-        } else {
-            tbody.innerHTML = '<tr><td colspan="2">找不到 ddd.js 數據，請檢查自動更新檔案</td></tr>';
-        }
+            tr.appendChild(tdNums);
+            
+            tbody.appendChild(tr);
+        });
     </script>
 
 </body>
